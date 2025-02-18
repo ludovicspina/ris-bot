@@ -1,14 +1,13 @@
-// Bouche / Oris / SpydisBotB.js
-
-const { client, TOKEN_B } = require('./imports');
-const { joinVoiceChannel, createAudioPlayer, createAudioResource, NoSubscriberBehavior } = require('@discordjs/voice');
+// Oreille / Auris
+const { client, TOKEN } = require('./imports');
+const { joinVoiceChannel } = require('@discordjs/voice');
 
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
 client.on('messageCreate', async message => {
-    if (message.content === '!spylis') {
+    if (message.content === '!spymic') {
         const voiceChannel = message.member.voice.channel;
         if (voiceChannel) {
             try {
@@ -19,18 +18,9 @@ client.on('messageCreate', async message => {
                     adapterCreator: voiceChannel.guild.voiceAdapterCreator,
                 });
 
-                await message.channel.send(`Transmitting sound in ${voiceChannel.name}`);
+                await message.channel.send(`Listening in ${voiceChannel.name}`);
 
-                // Optionally, play some audio to confirm the bot is connected
-                const player = createAudioPlayer({
-                    behaviors: {
-                        noSubscriber: NoSubscriberBehavior.Pause,
-                    },
-                });
-
-                const resource = createAudioResource('./path-to-audio-file.mp3');
-                player.play(resource);
-                connection.subscribe(player);
+                // Here you can add logic to handle audio receiving
 
             } catch (error) {
                 console.error('Error connecting to voice channel:', error);
@@ -42,4 +32,4 @@ client.on('messageCreate', async message => {
     }
 });
 
-client.login(TOKEN_B);
+client.login(TOKEN);
